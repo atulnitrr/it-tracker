@@ -1,19 +1,38 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/autContext";
 
-const Register = () => {
+const Register = props => {
   const autContext = useContext(AuthContext);
-  const { testCall, addUser } = autContext;
+  const {
+    registerUser,
+    clearRegister,
+    testCall,
+    isRegistered,
+    error
+  } = autContext;
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: ""
   });
+
+  useEffect(() => {
+    if (error !== null) {
+      console.log(error);
+    } else if (isRegistered) {
+      props.history.push("/");
+      // clear the registration state after success
+      clearRegister();
+    }
+
+    //eslint-disable-next-line
+  }, [isRegistered, props.history, error]);
+
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
   const onSubmit = e => {
     e.preventDefault();
     testCall();
-    addUser(user);
+    registerUser(user);
   };
   return (
     <Fragment>

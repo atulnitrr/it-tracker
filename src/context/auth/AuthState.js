@@ -1,13 +1,20 @@
 import React, { useReducer } from "react";
 import AuthContext from "./autContext";
 import autReducer from "./autReducer";
-import { TEST_CALL } from "../types";
+import {
+  TEST_CALL,
+  REGISTER_SUCCESS,
+  REGISTER_FAILED,
+  CLEAR_REGISTER
+} from "../types";
 import axios from "axios";
 
 const AuthState = props => {
   const initialState = {
     test: null,
-    user: null,
+    user: { userId: null, userName: null },
+    isAutenticated: false,
+    isRegistered: false,
     error: null
   };
 
@@ -20,23 +27,32 @@ const AuthState = props => {
     } catch (error) {
       console.log(error);
     }
-
     dispatch({ type: TEST_CALL });
   };
 
-  const addUser = async user => {
+  const registerUser = async user => {
     try {
       const res = await axios.post("/users", user);
-      console.log(res);
-    } catch (error) {}
+      dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+    } catch (error) {
+      dispatch({ type: REGISTER_FAILED, payload: error.response.data.message });
+    }
   };
+
+  const clearRegister = () => {
+    dispatch({ type: CLEAR_REGISTER });
+  };
+
   return (
     <AuthContext.Provider
       value={{
         test: state.test,
         user: state.user,
         error: state.error,
-        addUser,
+        isAutenticated: state.isAutenticated,
+        isRegistered: state.isRegistered,
+        registerUser,
+        clearRegister,
         testCall
       }}
     >
