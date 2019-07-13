@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/autContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const Register = props => {
   const autContext = useContext(AuthContext);
@@ -8,8 +9,11 @@ const Register = props => {
     clearRegister,
     testCall,
     isRegistered,
-    error
+    error,
+    clearError
   } = autContext;
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -18,6 +22,8 @@ const Register = props => {
 
   useEffect(() => {
     if (error !== null) {
+      setAlert("danger", error);
+      clearError();
       console.log(error);
     } else if (isRegistered) {
       props.history.push("/login");
