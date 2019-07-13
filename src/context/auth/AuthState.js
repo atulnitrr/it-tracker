@@ -8,15 +8,18 @@ import {
   CLEAR_REGISTER,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  CLEAR_ERROR
+  CLEAR_ERROR,
+  LOGOUT
 } from "../types";
 import axios from "axios";
 
 const AuthState = props => {
   const initialState = {
     test: null,
-    user: { userId: null, userName: null },
-    isAutenticated: false,
+    userId: localStorage.getItem("userId"),
+    userName: localStorage.getItem("userName"),
+    token: localStorage.getItem("token"),
+    isAutenticated: localStorage.getItem("isAutenticated"),
     isRegistered: false,
     error: null
   };
@@ -52,8 +55,16 @@ const AuthState = props => {
   const login = async user => {
     try {
       const res = await axios.post("/users/login", user);
-      dispatch({ type: LOGIN_SUCCESS, payload: res.headers });
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: {
+          userId: res.headers.userid,
+          token: res.headers.authorization,
+          userName: user.email.split("@")[0]
+        }
+      });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: LOGIN_FAILURE,
         payload:
@@ -61,8 +72,11 @@ const AuthState = props => {
             ? "Unauthorized user "
             : error.response.data.message
       });
-      console.log(error.response);
     }
+  };
+
+  const logout = () => {
+    dispatch({ type: LOGOUT });
   };
 
   return (
@@ -73,9 +87,13 @@ const AuthState = props => {
         error: state.error,
         isAutenticated: state.isAutenticated,
         isRegistered: state.isRegistered,
+        userId: state.userId,
+        userName: state.userName,
+        token: state.token,
         registerUser,
         clearRegister,
         login,
+        logout,
         clearError,
         testCall
       }}
