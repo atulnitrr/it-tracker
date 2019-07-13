@@ -7,7 +7,8 @@ import {
   REGISTER_FAILED,
   CLEAR_REGISTER,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  CLEAR_ERROR
 } from "../types";
 import axios from "axios";
 
@@ -45,6 +46,9 @@ const AuthState = props => {
     dispatch({ type: CLEAR_REGISTER });
   };
 
+  const clearError = () => {
+    dispatch({ type: CLEAR_ERROR });
+  };
   const login = async user => {
     try {
       const res = await axios.post("/users/login", user);
@@ -54,7 +58,7 @@ const AuthState = props => {
         type: LOGIN_FAILURE,
         payload:
           error.response.status === 403
-            ? "Unautorize user "
+            ? "Unauthorized user "
             : error.response.data.message
       });
       console.log(error.response);
@@ -72,6 +76,7 @@ const AuthState = props => {
         registerUser,
         clearRegister,
         login,
+        clearError,
         testCall
       }}
     >

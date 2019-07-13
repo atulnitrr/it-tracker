@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/autContext";
 
 const Register = props => {

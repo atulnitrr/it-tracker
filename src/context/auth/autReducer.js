@@ -4,7 +4,8 @@ import {
   CLEAR_REGISTER,
   REGISTER_FAILED,
   LOGIN_FAILURE,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  CLEAR_ERROR
 } from "../types";
 
 export default (state, action) => {
@@ -48,6 +49,11 @@ export default (state, action) => {
         ...state,
         isRegistered: false,
         user: null
+      };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null
       };
     default:
       return state;

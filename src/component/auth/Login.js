@@ -1,21 +1,25 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/autContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const Login = props => {
   const autContext = useContext(AuthContext);
-  const { login, error, isAutenticated } = autContext;
+  const { login, error, isAutenticated, clearError } = autContext;
+  const alertContext = useContext(AlertContext);
+  const { alert, setAlert } = alertContext;
   const [user, setUser] = useState({
     email: "",
     password: ""
   });
 
   useEffect(() => {
-    if (error) {
-      console.log(error);
+    if (error !== null) {
+      setAlert("danger", error);
+      clearError();
     } else if (isAutenticated) {
       props.history.push("/");
     }
-  }, [isAutenticated, props.history]);
+  }, [isAutenticated, props.history, error]);
 
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
