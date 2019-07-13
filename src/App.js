@@ -12,6 +12,11 @@ import AlertState from "./context/alert/AlertState";
 import AuthState from "./context/auth/AuthState";
 import Alert from "./component/layout/Alert";
 import PrivateRoute from "./component/route/PrivateRoute";
+import setAuthToken from "./utils/setAuthTokens";
+
+if (localStorage.getItem("token")) {
+  setAuthToken(localStorage.getItem("token"), localStorage.getItem("userId"));
+}
 
 const App = () => {
   return (
