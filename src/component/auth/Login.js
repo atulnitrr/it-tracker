@@ -1,16 +1,28 @@
-import React, { useState } from "react";
-import { userInfo } from "os";
+import React, { useState, useContext, useEffect } from "react";
+import AuthContext from "../../context/auth/autContext";
 
-const Login = () => {
+const Login = props => {
+  const autContext = useContext(AuthContext);
+  const { login, error, isAutenticated } = autContext;
   const [user, setUser] = useState({
     email: "",
     password: ""
   });
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    } else if (isAutenticated) {
+      props.history.push("/");
+    }
+  }, [isAutenticated, props.history]);
+
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
+    console.log(user);
+    login(user);
   };
 
   return (

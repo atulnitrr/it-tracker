@@ -2,7 +2,9 @@ import {
   TEST_CALL,
   REGISTER_SUCCESS,
   CLEAR_REGISTER,
-  REGISTER_FAILED
+  REGISTER_FAILED,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS
 } from "../types";
 
 export default (state, action) => {
@@ -23,7 +25,18 @@ export default (state, action) => {
           userName: action.payload.userName
         }
       };
+    case LOGIN_SUCCESS:
+      localStorage.setItem("userId", action.payload.userid);
+      localStorage.setItem("token", action.payload.authorization);
+      return {
+        ...state,
+        isAutenticated: true
+      };
+    case LOGIN_FAILURE:
     case REGISTER_FAILED:
+      localStorage.setItem("userId", action.payload.userId);
+      localStorage.setItem("userName", action.payload.userName);
+      localStorage.setItem("token", action.payload.authorization);
       return {
         ...state,
         error: action.payload

@@ -5,7 +5,9 @@ import {
   TEST_CALL,
   REGISTER_SUCCESS,
   REGISTER_FAILED,
-  CLEAR_REGISTER
+  CLEAR_REGISTER,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE
 } from "../types";
 import axios from "axios";
 
@@ -43,6 +45,22 @@ const AuthState = props => {
     dispatch({ type: CLEAR_REGISTER });
   };
 
+  const login = async user => {
+    try {
+      const res = await axios.post("/users/login", user);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.headers });
+    } catch (error) {
+      dispatch({
+        type: LOGIN_FAILURE,
+        payload:
+          error.response.status === 403
+            ? "Unautorize user "
+            : error.response.data.message
+      });
+      console.log(error.response);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -53,6 +71,7 @@ const AuthState = props => {
         isRegistered: state.isRegistered,
         registerUser,
         clearRegister,
+        login,
         testCall
       }}
     >
