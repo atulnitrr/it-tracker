@@ -20,6 +20,10 @@ body {
   color: #333;
 }
 
+.App {
+  text-align: center;
+}
+
 /*
 This changes the nav link color 
 */
@@ -52,8 +56,8 @@ ul {
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.7rem 0.2rem;
+  align-items: left;
+  padding: 0.5rem 1rem;
   z-index: 1;
   width: 100%;
   opacity: 0.9;
@@ -72,4 +76,23 @@ ul {
 
 .navbar a:hover {
   color: darkgray;
+}
+
+input[type="submit"],
+button {
+  font: inherit;
+}
+.form-group {
+  margin: 1.2rem 0;
+}
+
+.form-group input {
+  margin: 0.2rem;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  overflow: hidden;
+  padding: 0.2rem;
 }

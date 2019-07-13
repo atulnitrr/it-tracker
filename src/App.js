@@ -14,7 +14,7 @@ const App = () => {
   return (
     <AuthState>
       <Router>
-        <Fragment>
+        <div className="App">
           <NavBar />
           <div className="container">
             <Switch>
@@ -26,7 +26,7 @@ const App = () => {
               <Route component={NotFound} />
             </Switch>
           </div>
-        </Fragment>
+        </div>
       </Router>
     </AuthState>
   );

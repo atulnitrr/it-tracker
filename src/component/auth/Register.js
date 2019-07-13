@@ -20,7 +20,7 @@ const Register = props => {
     if (error !== null) {
       console.log(error);
     } else if (isRegistered) {
-      props.history.push("/");
+      props.history.push("/login");
       // clear the registration state after success
       clearRegister();
     }
@@ -35,32 +35,53 @@ const Register = props => {
     registerUser(user);
   };
   return (
-    <Fragment>
+    <div className="form-container">
+      <h1>
+        Account <span> Register</span>
+      </h1>
       <form onSubmit={onSubmit}>
+        <div className="form-group">
+          {/* <label htmlFor="name">Name </label> */}
+          <input
+            type="text"
+            name="name"
+            placeholder="name.."
+            value={user.name}
+            onChange={onChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          {/* <label htmlFor="email">Email </label> */}
+          <input
+            type="text"
+            name="email"
+            placeholder="email.."
+            value={user.email}
+            onChange={onChange}
+            required
+          />
+        </div>
+
+        <div className="from-group">
+          {/* <label htmlFor="password">Password </label> */}
+          <input
+            type="text"
+            name="password"
+            placeholder="password.."
+            value={user.password}
+            onChange={onChange}
+            required
+          />
+        </div>
         <input
-          type="text"
-          name="name"
-          placeholder="name.."
-          value={user.name}
-          onChange={onChange}
+          type="submit"
+          name="Register"
+          className="btn  btn-primary btn-larg"
+          style={{ margin: "1rem 0 0 0" }}
         />
-        <input
-          type="text"
-          name="email"
-          placeholder="email.."
-          value={user.email}
-          onChange={onChange}
-        />
-        <input
-          type="text"
-          name="password"
-          placeholder="password.."
-          value={user.password}
-          onChange={onChange}
-        />
-        <input type="submit" name="Register" />
       </form>
-    </Fragment>
+    </div>
   );
 };
 
