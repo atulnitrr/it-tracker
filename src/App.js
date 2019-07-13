@@ -10,6 +10,7 @@ import Register from "./component/auth/Register";
 import Login from "./component/auth/Login";
 import AlertState from "./context/alert/AlertState";
 import AuthState from "./context/auth/AuthState";
+import UserState from "./context/user/UserState";
 import Alert from "./component/layout/Alert";
 import PrivateRoute from "./component/route/PrivateRoute";
 import setAuthToken from "./utils/setAuthTokens";
@@ -21,24 +22,26 @@ if (localStorage.getItem("token")) {
 const App = () => {
   return (
     <AuthState>
-      <AlertState>
-        <Router>
-          <div className="App">
-            <NavBar />
-            <div className="container">
-              <Alert />
-              <Switch>
-                <PrivateRoute exact path="/" component={Home} />
-                <PrivateRoute exact path="/about" component={About} />
-                <PrivateRoute exact path="/help" component={Help} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
-                <Route component={NotFound} />
-              </Switch>
+      <UserState>
+        <AlertState>
+          <Router>
+            <div className="App">
+              <NavBar />
+              <div className="container">
+                <Alert />
+                <Switch>
+                  <PrivateRoute exact path="/" component={Home} />
+                  <PrivateRoute exact path="/about" component={About} />
+                  <PrivateRoute exact path="/help" component={Help} />
+                  <Route exact path="/register" component={Register} />
+                  <Route exact path="/login" component={Login} />
+                  <Route component={NotFound} />
+                </Switch>
+              </div>
             </div>
-          </div>
-        </Router>
-      </AlertState>
+          </Router>
+        </AlertState>
+      </UserState>
     </AuthState>
   );
 };
