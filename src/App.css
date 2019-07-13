@@ -1,0 +1,75 @@
+:root {
+  --success-color: #28a745;
+  --dark-color: rgb(204, 17, 17);
+  --primary-color: #dc3545;
+  --light-color: #f4f4f4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #fff;
+  color: #333;
+}
+
+/*
+This changes the nav link color 
+*/
+a {
+  text-decoration: none;
+  color: var(--blue);
+}
+
+/*
+This apply when we hover over */
+a:hover {
+  color: #666;
+}
+
+ul {
+  list-style: none;
+}
+
+.bg-primary {
+  background-color: #28a745;
+  color: #333;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 0.2rem;
+  z-index: 1;
+  width: 100%;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar a {
+  color: #fff;
+  padding: 0.4rem;
+  margin: 0 0.25rem;
+}
+
+.navbar a:hover {
+  color: darkgray;
+}
