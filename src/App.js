@@ -11,6 +11,7 @@ import Login from "./component/auth/Login";
 import AlertState from "./context/alert/AlertState";
 import AuthState from "./context/auth/AuthState";
 import Alert from "./component/layout/Alert";
+import PrivateRoute from "./component/route/PrivateRoute";
 
 const App = () => {
   return (
@@ -22,9 +23,9 @@ const App = () => {
             <div className="container">
               <Alert />
               <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/about" component={About} />
-                <Route exact path="/help" component={Help} />
+                <PrivateRoute exact path="/" component={Home} />
+                <PrivateRoute exact path="/about" component={About} />
+                <PrivateRoute exact path="/help" component={Help} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
                 <Route component={NotFound} />

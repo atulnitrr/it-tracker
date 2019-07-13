@@ -32,7 +32,9 @@ export default (state, action) => {
       localStorage.setItem("isAutenticated", true);
       return {
         ...state,
-        isAutenticated: true
+        isAutenticated: true,
+        userName: action.payload.userName,
+        userId: action.payload.userId
       };
     case LOGIN_FAILURE:
     case LOGOUT:
@@ -43,6 +45,7 @@ export default (state, action) => {
       localStorage.removeItem("isAutenticated");
       return {
         ...state,
+        isAutenticated: false,
         error: action.payload
       };
     case CLEAR_REGISTER:

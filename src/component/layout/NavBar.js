@@ -34,7 +34,7 @@ const NavBar = () => {
       <li>
         <Link to="/help">Help</Link>
       </li>
-      Hello {userName}
+      <span style={{ color: "yellow" }}>Hello {userName}</span>
       <li />
       <li>
         <a href="#!" onClick={onLogout}>
